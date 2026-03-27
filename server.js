@@ -10,7 +10,9 @@ const contactRoute = require('./routes/contact');
 const adminRoute = require('./routes/admin');
 
 const app = express();
-const PORT = 5000;
+
+// ✅ FIX 1: Use dynamic PORT from environment (required for Render)
+const PORT = process.env.PORT || 5000;
 
 // ✅ MongoDB Connection
 mongoose.connect(process.env.MONGO_URI)
@@ -20,10 +22,8 @@ mongoose.connect(process.env.MONGO_URI)
     process.exit(1);
   });
 
-/* ✅🔥 FIXED CORS (MAIN FIX) */
-app.use(cors()); 
-// OR if you want strict:
-// app.use(cors({ origin: "http://localhost:5000" }));
+// ✅ CORS
+app.use(cors());
 
 // ✅ Middleware
 app.use(express.json());
